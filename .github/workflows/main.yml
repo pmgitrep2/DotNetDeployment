@@ -38,4 +38,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: dotnet-code-artifact
-        path: D:\a\dotbuild\dotbuild\DARRefDataTest\publish\
+        path: D:\a\dotbuild\dotbuild\DARRefDataTest\publishpublish\
