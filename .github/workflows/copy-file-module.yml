@@ -16,15 +16,20 @@ jobs:
 
       # Run your build steps here
       # ...
+      # Create a folder and five files
+      - name: Create Folder and Files
+        run: |
+          mkdir my-folder
+          for i in {1..5}; do
+            echo "This is the content of file ${i}" > "my-folder/file${i}.txt"
+          done
 
-      # Generate an artifact
-      - name: Create Artifact
-        run: echo "This is the content of my artifact" > my-artifact.txt
+      # Publish the folder as an artifact
       - name: Publish Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: my-artifact
-          path: my-artifact.txt
+          name: my-folder-artifact
+          path: my-folder
 
   Copy-file-git-lighsail:
     name: Copy File
@@ -39,8 +44,13 @@ jobs:
     - name: Download Artifact
       uses: actions/download-artifact@v2
       with:
-        name: my-artifact
+        name: my-folder-artifact
 
+    - name: cd file
+      run: |
+        ls
+        cd my-folder-artifact
+        ls
 
     - name: Install sshpass dependency for ssh access
       run: |
