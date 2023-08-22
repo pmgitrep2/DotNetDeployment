@@ -32,8 +32,9 @@ jobs:
 
     - name: run dir
       run: dir
-    - name: run tree
-      run: tree
+    - name: run D dir
+      run: dir D:\ /b /s
+
     - name: Publish artifact
       uses: actions/upload-artifact@v2
       with:
