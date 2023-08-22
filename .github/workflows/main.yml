@@ -32,12 +32,6 @@ jobs:
     - name: Restore dependencies
       run: msbuild /restore
       
-      
-    # - name: Build .NET code
-    #   run: msbuild /p:Configuration=Release /p:OutputPath=d:\mybuildfiles2023\build
-
-    # - name: Publish .NET code
-    #   run: msbuild /t:Publish /p:Configuration=Release /p:OutputPath=d:\mybuildfiles2023\publish
 
     - name: Build Solution
       run: |
