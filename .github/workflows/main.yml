@@ -32,11 +32,10 @@ jobs:
 
     - name: run dir
       run: dir
-    - name: run D dir
-      run: dir D:\ /b /s
+
 
     - name: Publish artifact
       uses: actions/upload-artifact@v2
       with:
         name: dotnet-code-artifact
-        path: /
+        path: D:\a\dotbuild\dotbuild\DARRefDataTest\publish\
