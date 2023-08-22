@@ -46,16 +46,16 @@ jobs:
       with:
         name: my-folder-artifact
       # Create a folder named "abc"
-      - name: Create Folder abc
-        run: mkdir abc
+    - name: Create Folder abc
+      run: mkdir abc
 
       # Move the downloaded artifact to the "abc" folder
-      - name: Move Artifact to abc
-        run: mv ${{ github.workspace }}/my-folder abc/
+    - name: Move Artifact to abc
+      run: mv ${{ github.workspace }}/my-folder abc/
 
       # Zip the contents of the "abc" folder
-      - name: Zip Artifact
-        run: zip -r my-folder-artifact.zip abc/*
+    - name: Zip Artifact
+      run: zip -r my-folder-artifact.zip abc/*
     - name: cd files
       run: |
         ls
