@@ -40,7 +40,7 @@ jobs:
 
     - name: Set artifact name
       id: artifact-name
-      run: echo "::set-output name=name::dotnet-code-artifact-$(date +%Y%m%d%H%M%S)"
+      run: echo "::set-output name=name::Build.-$(date +%Y%m%d)"
 
     - name: Publish artifact
       uses: actions/upload-artifact@v2
