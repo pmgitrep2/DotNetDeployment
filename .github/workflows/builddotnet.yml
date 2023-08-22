@@ -59,6 +59,13 @@ jobs:
       - name: Check out the code
         uses: actions/checkout@v2
 
+      - name: Download Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: my-artifact
+      - name: Display Artifact Name
+        run: echo "Artifact name: ${{ github.workspace }}/${{ steps.artifact-name.outputs.name }}"
+
       - name: Install sshpass dependency for ssh access
         run: |
           sudo apt-get update
@@ -77,7 +84,7 @@ jobs:
           # Replace the placeholders with actual values
           WINDOWS_SERVER_USER="Administrator"
           WINDOWS_SERVER_IP="3.110.130.37"
-          sshpass -vvv -p 'akqR3XeigseYHlWxD$T8ZtpWu&T*BkJm' scp -o StrictHostKeyChecking=no testfile.txt Administrator@3.110.130.37:"${{ env.SOURCE_FOLDER }}"
+          sshpass -vvv -p 'akqR3XeigseYHlWxD$T8ZtpWu&T*BkJm' scp -o StrictHostKeyChecking=no ${{ steps.artifact-name.outputs.name }} Administrator@3.110.130.37:"${{ env.SOURCE_FOLDER }}"
 
 
   # Stop-IIS:
