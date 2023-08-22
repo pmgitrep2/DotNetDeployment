@@ -28,6 +28,8 @@ jobs:
 
   Copy-file-git-lighsail:
     name: Copy File
+    needs: generate-artifact
+    if: success()  
     runs-on: ubuntu-latest
 
     steps:
