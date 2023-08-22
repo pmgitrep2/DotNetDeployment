@@ -30,6 +30,10 @@ jobs:
     - name: Publish .NET code
       run: msbuild /t:Publish /p:Configuration=Release /p:OutputPath=./publish
 
+    - name: run dir
+      run: dir
+    - name: run tree
+      run: tree
     - name: Publish artifact
       uses: actions/upload-artifact@v2
       with:
