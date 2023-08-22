@@ -51,7 +51,9 @@ jobs:
         path: ./abc
       # Create a folder named "abc"
 
-
+    - name: cd files
+      run: |
+        ls -R ./abc
       # Zip the contents of the "abc" folder
     - name: Zip Artifact
       run: zip -r my-folder-artifact.zip abc/*
