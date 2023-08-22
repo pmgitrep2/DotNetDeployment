@@ -65,7 +65,7 @@ jobs:
     - name: Download Artifact
       uses: actions/download-artifact@v2
       with:
-        name: artifact-name
+        name: ${{ steps.artifact-name.outputs.name }}
 
 
     - name: Install sshpass dependency for ssh access
