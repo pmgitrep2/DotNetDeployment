@@ -1,4 +1,4 @@
-name: Build and Publish .NET Code (Windows)
+name: Comp Flow
 
 on:
   workflow_dispatch:
