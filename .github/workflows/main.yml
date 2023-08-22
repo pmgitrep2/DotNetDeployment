@@ -6,19 +6,19 @@ on:
 jobs:
   build-publish:
     runs-on: windows-latest  # Use the Windows runner
-    # env:
-    #   NUGET_PACKAGES: ${{ runner.workspace }}/.nuget/packages
+    env:
+      NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
       
-    # - name: Cache NuGet packages
-    #   uses: actions/cache@v2
-    #   with:
-    #     path: ${{ env.NUGET_PACKAGES }}
-    #     key: nuget-${{ hashFiles('**/*.csproj') }}
-    #     restore-keys: nuget-
+    - name: Cache NuGet packages
+      uses: actions/cache@v2
+      with:
+        path: ${{ env.NUGET_PACKAGES }}
+        key: nuget-${{ hashFiles('**/*.csproj') }}
+        restore-keys: nuget-
         
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v1.0.2
@@ -33,14 +33,19 @@ jobs:
       run: msbuild /restore
       
       
-    - name: Build .NET code
-      run: msbuild /p:Configuration=Release /p:OutputPath=d:\mybuildfiles2023\build
+    # - name: Build .NET code
+    #   run: msbuild /p:Configuration=Release /p:OutputPath=d:\mybuildfiles2023\build
 
-    - name: Publish .NET code
-      run: msbuild /t:Publish /p:Configuration=Release /p:OutputPath=d:\mybuildfiles2023\publish
+    # - name: Publish .NET code
+    #   run: msbuild /t:Publish /p:Configuration=Release /p:OutputPath=d:\mybuildfiles2023\publish
+
+    - name: Build Solution
+      run: |
+        msbuild.exe DAR-ReferenceDataUI.sln /nologo /nr:false /p:DeployOnBuild=true /p:DeployDefaultTarget=WebPublish /p:WebPublishMethod=FileSystem /p:DeleteExistingFiles=True /p:platform="Any CPU" /p:configuration="Release" /p:PublishUrl="../_build"
+        
 
     - name: Publish artifact
       uses: actions/upload-artifact@v2
       with:
         name: dotnet-code-artifact
-        path: d:\mybuildfiles2023\publish
+        path: path: "./_build"
