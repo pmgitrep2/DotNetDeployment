@@ -57,33 +57,33 @@ jobs:
 
     steps:
 
-    - name: Download Artifact
-      uses: actions/download-artifact@v2
-      with:
-        name: artifact-name
+  - name: Download Artifact
+    uses: actions/download-artifact@v2
+    with:
+      name: artifact-name
 
-    - name: Display Artifact Name
-      run: echo "Artifact name: "${{ github.workspace }}/${{ steps.artifact-name.outputs.name }}"
+  - name: Display Artifact Name
+    run: echo "Artifact name: "${{ github.workspace }}/${{ steps.artifact-name.outputs.name }}"
 
-    - name: Check out the code
-      uses: actions/checkout@v2
+  - name: Check out the code
+    uses: actions/checkout@v2
 
-    - name: Install sshpass dependency for ssh access
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y sshpass
+  - name: Install sshpass dependency for ssh access
+    run: |
+      sudo apt-get update
+      sudo apt-get install -y sshpass
 
-    - name: Create ~/.ssh directory for storing known hosts
-      run: mkdir -p ~/.ssh
+  - name: Create ~/.ssh directory for storing known hosts
+    run: mkdir -p ~/.ssh
 
-    - name: Update known_hosts file with the server ip to avoid fingerprint ask
-      run: |
-        WINDOWS_SERVER_IP="3.110.130.37"
-        echo "$WINDOWS_SERVER_IP $(ssh-keyscan -t rsa $WINDOWS_SERVER_IP 2>&1)" >> ~/.ssh/known_hosts
+  - name: Update known_hosts file with the server ip to avoid fingerprint ask
+    run: |
+      WINDOWS_SERVER_IP="3.110.130.37"
+      echo "$WINDOWS_SERVER_IP $(ssh-keyscan -t rsa $WINDOWS_SERVER_IP 2>&1)" >> ~/.ssh/known_hosts
 
-    - name: copy the latest files at C drive
-      run: |
-        # Replace the placeholders with actual values
-        WINDOWS_SERVER_USER="Administrator"
-        WINDOWS_SERVER_IP="3.110.130.37"
-        sshpass -vvv -p 'akqR3XeigseYHlWxD$T8ZtpWu&T*BkJm' scp -o StrictHostKeyChecking=no "${{ github.workspace }}/${{ steps.artifact-name.outputs.name }}" Administrator@3.110.130.37:"${{ env.SOURCE_FOLDER }}"
+  - name: copy the latest files at C drive
+    run: |
+      # Replace the placeholders with actual values
+      WINDOWS_SERVER_USER="Administrator"
+      WINDOWS_SERVER_IP="3.110.130.37"
+      sshpass -vvv -p 'akqR3XeigseYHlWxD$T8ZtpWu&T*BkJm' scp -o StrictHostKeyChecking=no "${{ github.workspace }}/${{ steps.artifact-name.outputs.name }}" Administrator@3.110.130.37:"${{ env.SOURCE_FOLDER }}"
