@@ -18,7 +18,7 @@ jobs:
       run: msbuild /restore
       
     - name: Restore NuGet packages
-      run: dotnet restore DAR-ReferenceDataUI.sln
+      run: dotnet restore
       
     - name: Build .NET code
       run: msbuild /p:Configuration=Release
