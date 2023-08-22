@@ -3,6 +3,10 @@ name: Comp Flow
 on:
   workflow_dispatch:
 
+env:
+  SOURCE_FOLDER: "C:/DeploymentFiles/VersionFolder"
+  DESTINATION_FOLDER: "C:/DeploymentFiles/ReleaseFolder"
+
 jobs:
   # build-publish:
   #   runs-on: windows-latest  # Use the Windows runner
