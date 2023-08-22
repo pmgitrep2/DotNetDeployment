@@ -63,8 +63,7 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         name: artifact-name
-    - name: Display Artifact Name
-      run: echo "Artifact name: ${{ github.workspace }}/${{ steps.artifact-name.outputs.name }}"
+
 
     - name: Install sshpass dependency for ssh access
       run: |
