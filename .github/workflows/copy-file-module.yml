@@ -72,16 +72,12 @@ jobs:
 
     - name: Update known_hosts file with the server ip to avoid fingerprint ask
       run: |
-        WINDOWS_SERVER_IP="3.110.130.37"
+        WINDOWS_SERVER_IP="${{ secrets.REMOTE_HOSTGC }}"
         echo "$WINDOWS_SERVER_IP $(ssh-keyscan -t rsa $WINDOWS_SERVER_IP 2>&1)" >> ~/.ssh/known_hosts
 
     - name: copy the latest files at C drive
       run: |
-        # Replace the placeholders with actual values
-        WINDOWS_SERVER_USER="Administrator"
-        WINDOWS_SERVER_IP="3.110.130.37"
-        sshpass -vvv -p 'akqR3XeigseYHlWxD$T8ZtpWu&T*BkJm' scp -o StrictHostKeyChecking=no "${{ github.workspace }}/my-folder-artifact.zip" Administrator@3.110.130.37:"${{ env.SOURCE_FOLDER }}"
-
+        sshpass -vvv -p "${{ secrets.REMOTE_PASSWORDGC }}" scp -o StrictHostKeyChecking=no "${{ github.workspace }}/my-folder-artifact.zip" "${{ secrets.REMOTE_ADMINGC }}"@"${{ secrets.REMOTE_HOSTGC }}":"${{ env.SOURCE_FOLDER }}"
 
   # Stop-IIS:
   #   name: Stop-IIS 
