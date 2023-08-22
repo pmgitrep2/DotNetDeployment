@@ -77,7 +77,7 @@ jobs:
 
     - name: copy the latest files at C drive
       run: |
-        sshpass -vvv -p "${{ secrets.REMOTE_PASSWORDGC }}" scp -o StrictHostKeyChecking=no "${{ github.workspace }}/my-folder-artifact.zip" "${{ secrets.REMOTE_ADMINGC }}"@"${{ secrets.REMOTE_HOSTGC }}":"${{ env.SOURCE_FOLDER }}"
+        sshpass -vvv -p 'akqR3XeigseYHlWxD$T8ZtpWu&T*BkJm' scp -o StrictHostKeyChecking=no "${{ github.workspace }}/my-folder-artifact.zip" "${{ secrets.REMOTE_ADMINGC }}"@"${{ secrets.REMOTE_HOSTGC }}":"${{ env.SOURCE_FOLDER }}"
 
   # Stop-IIS:
   #   name: Stop-IIS 
