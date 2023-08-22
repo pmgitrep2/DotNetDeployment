@@ -1,0 +1,30 @@
+name: Build and Publish .NET Code (Windows)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-publish:
+    runs-on: windows-latest  # Use the Windows runner
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    - name: Restore dependencies
+      run: msbuild /restore
+
+    - name: Build .NET code
+      run: msbuild /p:Configuration=Release
+
+    - name: Publish .NET code
+      run: msbuild /t:Publish /p:Configuration=Release /p:OutputPath=./publish
+
+    - name: Publish artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: dotnet-code-artifact
+        path: ./publish
