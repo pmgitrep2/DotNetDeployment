@@ -59,8 +59,7 @@ jobs:
     - name: cd files
       run: |
         ls
-        cd ${{ github.workspace }}/abc
-        ls
+
 
     - name: Install sshpass dependency for ssh access
       run: |
