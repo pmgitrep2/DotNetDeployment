@@ -57,6 +57,8 @@ jobs:
     needs: build-publish
     if: success()  
     runs-on: ubuntu-latest
+    env:
+      MY_PASS: ${{ secrets.REMOTE_PASSWORDGC }}
     steps:
     - name: Check out the code
       uses: actions/checkout@v2
@@ -95,7 +97,7 @@ jobs:
 
     - name: copy the latest files at C drive
       run: |
-        sshpass -vvv -p 'akqR3XeigseYHlWxD$T8ZtpWu&T*BkJm' scp -o StrictHostKeyChecking=no "${{ github.workspace }}/my-folder-artifact.zip" "${{ secrets.REMOTE_ADMINGC }}"@"${{ secrets.REMOTE_HOSTGC }}":"${{ env.SOURCE_FOLDER }}"
+        sshpass -vvv -p "$MY_PASS" scp -o StrictHostKeyChecking=no "${{ github.workspace }}/my-folder-artifact.zip" "${{ secrets.REMOTE_ADMINGC }}"@"${{ secrets.REMOTE_HOSTGC }}":"${{ env.SOURCE_FOLDER }}"
 
 
   # Stop-IIS:
