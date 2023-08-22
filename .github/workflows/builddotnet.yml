@@ -55,7 +55,6 @@ jobs:
   Copy-file-git-lighsail:
     name: Copy File
     needs: build-publish
-    runs-on: ubuntu-20.04
     if: success()  
     runs-on: ubuntu-latest
 
