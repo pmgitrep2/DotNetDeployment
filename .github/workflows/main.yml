@@ -14,8 +14,11 @@ jobs:
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v1.0.2
 
-    - name: Restore NuGet packages
-      run: dotnet restore
+    - name: Clean NuGet packages
+      run: nuget locals all -clear
+
+   - name: Restore NuGet packages
+     run: nuget restore
       
     - name: Restore dependencies
       run: msbuild /restore
