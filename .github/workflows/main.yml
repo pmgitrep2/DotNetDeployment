@@ -47,16 +47,4 @@ jobs:
       with:
         name: ${{ steps.artifact-name.outputs.name }}
         path: "./_build"
-    - name: Copy artifact to remote machine
-      env:
-        ARTIFACT_NAME: ${{ steps.artifact-name.outputs.name }}
-        REMOTE_MACHINE: "34.217.42.230"  # Replace with the actual remote machine address
-        REMOTE_USER: "Administrator"    # Replace with the actual remote username
-        REMOTE_PASSWORD: ${{ secrets.REMOTE_PASSWORD }}  # Store the remote password as a secret
-      run: |
-        $securePassword = ConvertTo-SecureString -String $env:REMOTE_PASSWORD -AsPlainText -Force
-        $credential = New-Object System.Management.Automation.PSCredential ($env:REMOTE_USER, $securePassword)
-        Invoke-Command -ComputerName $env:REMOTE_MACHINE -Credential $credential -ScriptBlock {
-          param($artifactName)
-          Copy-Item -Path "d:\mybuildfiles2023\publish\$artifactName" -Destination "C:\$artifactName"
-        } -ArgumentList $env:ARTIFACT_NAME
+  
