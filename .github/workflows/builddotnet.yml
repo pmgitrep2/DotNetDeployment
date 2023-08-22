@@ -57,15 +57,27 @@ jobs:
     needs: build-publish
     if: success()  
     runs-on: ubuntu-latest
-
     steps:
     - name: Check out the code
       uses: actions/checkout@v2
+
+    - name: Create Folder abc
+      run: mkdir abc
 
     - name: Download Artifact
       uses: actions/download-artifact@v2
       with:
         name: ${{ steps.artifact-name.outputs.name }}
+        path: ./abc
+
+
+
+      # Zip the contents of the "abc" folder
+    - name: Zip Artifact
+      run: zip -r my-folder-artifact.zip abc/*
+    - name: cd files
+      run: |
+        ls
 
 
     - name: Install sshpass dependency for ssh access
@@ -86,7 +98,7 @@ jobs:
         # Replace the placeholders with actual values
         WINDOWS_SERVER_USER="Administrator"
         WINDOWS_SERVER_IP="3.110.130.37"
-        sshpass -vvv -p 'akqR3XeigseYHlWxD$T8ZtpWu&T*BkJm' scp -o StrictHostKeyChecking=no ${{ steps.artifact-name.outputs.name }} Administrator@3.110.130.37:"${{ env.SOURCE_FOLDER }}"
+        sshpass -vvv -p 'akqR3XeigseYHlWxD$T8ZtpWu&T*BkJm' scp -o StrictHostKeyChecking=no "${{ github.workspace }}/my-folder-artifact.zip" Administrator@3.110.130.37:"${{ env.SOURCE_FOLDER }}"
 
 
   # Stop-IIS:
