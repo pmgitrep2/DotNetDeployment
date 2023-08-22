@@ -76,10 +76,14 @@ jobs:
         WINDOWS_SERVER_IP="${{ secrets.REMOTE_HOSTGC }}"
         echo "$WINDOWS_SERVER_IP $(ssh-keyscan -t rsa $WINDOWS_SERVER_IP 2>&1)" >> ~/.ssh/known_hosts
 
+    - name: Show Secret
+      run: |
+        echo "Secret Value: $MY_PASS"
+        
     - name: copy the latest files at C drive
 
       run: |
-        sshpass -vvv -p '$MY_PASS' scp -o StrictHostKeyChecking=no "${{ github.workspace }}/my-folder-artifact.zip" "${{ secrets.REMOTE_ADMINGC }}"@"${{ secrets.REMOTE_HOSTGC }}":"${{ env.SOURCE_FOLDER }}"
+        sshpass -vvv -p "$MY_PASS" scp -o StrictHostKeyChecking=no "${{ github.workspace }}/my-folder-artifact.zip" "${{ secrets.REMOTE_ADMINGC }}"@"${{ secrets.REMOTE_HOSTGC }}":"${{ env.SOURCE_FOLDER }}"
 
   # Stop-IIS:
   #   name: Stop-IIS 
