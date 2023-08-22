@@ -34,17 +34,17 @@ jobs:
       
       
     - name: Build .NET code
-      run: msbuild /p:Configuration=Release
+      run: msbuild /p:Configuration=Release /p:OutputPath=d:\mybuildfiles2023\build
 
     - name: Publish .NET code
-      run: msbuild /t:Publish /p:Configuration=Release /p:OutputPath=./publish
-
-    - name: run dir
-      run: dir
-
+      run: msbuild /t:Publish /p:Configuration=Release /p:OutputPath=d:\mybuildfiles2023\publish
 
     - name: Publish artifact
       uses: actions/upload-artifact@v2
       with:
         name: dotnet-code-artifact
-        path: D:\a\dotbuild\dotbuild\DARRefDataTest\publishpublish\
+        path: d:\mybuildfiles2023\publish
+
+
+
+
