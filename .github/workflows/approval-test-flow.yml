@@ -16,6 +16,6 @@ jobs:
       - name: Approve Production Deployment
         uses: trstringer/manual-approval@v1.7.0
         with:
-          approvers: deployers
+          approvers: pmgitrep2
           secret: ${{ steps.generate_token.outputs.token }}
           issue-title: Approve Production Deployment
