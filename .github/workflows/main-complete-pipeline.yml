@@ -1,4 +1,4 @@
-name: NaveenbuildandZip
+name: Comp Pipeline
 
 on:
   workflow_dispatch:
