@@ -1,25 +1,23 @@
 name: Approval test flow
-
 on:
-  workflow_dispatch:
-
+  workflow_dispatch: null
 jobs:
-  build:
-    name: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Build
-        run: echo building
-  deploy:
-    - name: Generate token
-      id: generate_token
-      uses: tibdex/github-app-token@v1
-      with:
-        app_id: ${{ secrets.APP_ID }}
-        private_key: ${{ secrets.APP_KEY }}
-    - name: Approve Production Deployment
-      uses: trstringer/manual-approval@v1.7.0
-      with:
-        approvers: deployers
-        secret: ${{ steps.generate_token.outputs.token }}
-        issue-title: Approve Production Deployment
+  jobs:
+    build:
+      name: build
+      runs-on: ubuntu-latest
+      steps:
+        - name: Build
+          run: echo building
+        - name: Generate token
+          id: generate_token
+          uses: tibdex/github-app-token@v1
+          with: null
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.APP_KEY }}
+        - name: Approve Production Deployment
+          uses: trstringer/manual-approval@v1.7.0
+          with: null
+          approvers: deployers
+          secret: ${{ steps.generate_token.outputs.token }}
+          issue-title: Approve Production Deployment
