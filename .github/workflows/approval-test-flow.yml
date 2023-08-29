@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: trstringer/manual-approval@v1
         with:
-          secret: ${{ github.TOKEN }}
+          secret: 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
           approvers: pmgitrep
       - name: Deploy to production
         run: echo deploying
