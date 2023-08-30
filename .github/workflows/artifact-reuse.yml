@@ -35,4 +35,7 @@ jobs:
         #  "fail", "warn", "ignore"
         # default fail
         if_no_artifact_found: fail
+      
+    - uses: actions/checkout@v3
+    - name:  view files
       run: ls
