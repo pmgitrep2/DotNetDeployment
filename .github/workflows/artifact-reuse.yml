@@ -8,8 +8,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Github cli Bolivia
-      env:
-        GH_TOKEN: ${{ secrets.TOKEN }}
-      run: | # gh run download RUN_ID -n ARTIFACT_NAME
-       gh run download 889856184 -n downloader-artifact 
+    - name: Download artifact
+      id: download-artifact
+      uses: dawidd6/action-download-artifact@v2
+      with:
+        run_id: 6009554154
