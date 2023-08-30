@@ -13,5 +13,3 @@ jobs:
         GH_TOKEN: ${{ secrets.TOKEN }}
       run: | # gh run download RUN_ID -n ARTIFACT_NAME
        gh run download 889856184 -n downloader-artifact 
-      run: |
-        echo "working"
