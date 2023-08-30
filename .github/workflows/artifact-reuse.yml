@@ -12,4 +12,4 @@ jobs:
       id: download-artifact
       uses: dawidd6/action-download-artifact@v2
       with:
-        run_id: 6009554154
+        name: Build-dp1231-20230829-080846
