@@ -39,4 +39,4 @@ jobs:
         if_no_artifact_found: fail
 
     - name:  view files
-      run: ls ${{ github.workspace }}
+      run: ls xyz
