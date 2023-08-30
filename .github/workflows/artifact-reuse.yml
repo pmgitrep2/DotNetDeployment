@@ -7,8 +7,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Create Folder abc
-      run: mkdir abc
+    - name: Create Folder xyz
+      run: mkdir xyz
     - uses: actions/checkout@v3
     - name: Download artifact
       id: download-artifact
@@ -19,7 +19,7 @@ jobs:
             # Optional, name is treated as a regular expression if set true
         name_is_regexp: true
         # Optional, a directory where to extract artifact(s), defaults to the current directory
-        path: ./xyz
+        path: ${{ github.workspace }}/xyz
         # Optional, defaults to current repo
         repo: ${{ github.repository }}
         # Optional, check the workflow run to whether it has an artifact
@@ -40,4 +40,4 @@ jobs:
       
     - uses: actions/checkout@v3
     - name:  view files
-      run: ls
+      run: ls ${{ github.workspace }}
