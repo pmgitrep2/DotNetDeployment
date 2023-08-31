@@ -95,9 +95,25 @@ jobs:
         WINDOWS_SERVER_IP="${{ secrets.REMOTE_HOSTGC }}"
         echo "$WINDOWS_SERVER_IP $(ssh-keyscan -t rsa $WINDOWS_SERVER_IP 2>&1)" >> ~/.ssh/known_hosts
 
-    - name: copy the latest files at C drive
-      run: |
-        sshpass -vvv -p "$SERVER_PASS" scp -o StrictHostKeyChecking=no "${{ github.workspace }}/my-folder-artifact.zip" "${{ secrets.REMOTE_ADMINGC }}"@"${{ secrets.REMOTE_HOSTGC }}":"${{ env.SOURCE_FOLDER }}"
+    # - name: copy the latest files at C drive
+    #   run: |
+    #     sshpass -vvv -p "$SERVER_PASS" scp -o StrictHostKeyChecking=no "${{ github.workspace }}/my-folder-artifact.zip" "${{ secrets.REMOTE_ADMINGC }}"@"${{ secrets.REMOTE_HOSTGC }}":"${{ env.SOURCE_FOLDER }}"
 
+
+    - name: One-time SSH login
+      run: |
+        sshpass -vvv -p "$SERVER_PASS" ssh -o StrictHostKeyChecking=no "${{ secrets.REMOTE_ADMINGC }}"@"${{ secrets.REMOTE_HOSTGC }}" <<EOF
+        # Start your remote commands here
+        scp "${{ github.workspace }}/${{ needs.build-publish.outputs.output1}}.zip" "${{ env.SOURCE_FOLDER }}"
+        powershell -Command "Stop-Service -Name W3SVC; Get-Service -Name W3SVC"
+        powershell -Command "Remove-Item C:\\DeploymentFiles\\ReleaseFolder\\* -Recurse"
+        scp "${{ github.workspace }}/${{ needs.build-publish.outputs.output1}}.zip" "${{ env.DESTINATION_FOLDER }}"
+        powershell -Command "Expand-Archive -Path '${{ env.DESTINATION_FOLDER }}\\${{ needs.build-publish.outputs.output1}}.zip' -DestinationPath '${{ env.DESTINATION_FOLDER }}'"
+        powershell -Command "Copy-Item -Path C:\\DeploymentFiles\\ReleaseFolder\\abc\\* -Destination '${{ env.DESTINATION_FOLDER }}' -Force"
+        scp "${{ github.workspace }}/Config/Web.config" "${{ env.DESTINATION_FOLDER_CONFIG }}"
+        powershell -Command "Remove-Item C:\\DeploymentFiles\\ReleaseFolder\\*.zip -Recurse; Remove-Item C:\\DeploymentFiles\\ReleaseFolder\\abc -Recurse"
+        powershell -Command "Start-Service -Name W3SVC; Get-Service -Name W3SVC"
+        powershell -Command "Get-ChildItem -Path '${{ env.SOURCE_FOLDER }}' | Sort-Object -Property LastWriteTime -Descending | Select-Object -Skip 10 | Remove-Item -Force"
+        EOF
 
  
